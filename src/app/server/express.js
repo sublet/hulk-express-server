@@ -30,6 +30,9 @@ class Server {
     const bodyParseJson = bodyParser.json({
       type: '*/*',
       limit: '50mb',
+      verify: (req, res, buf) => {
+        req.rawBody = buf
+      }
     });
     const bodyParseEncoded = bodyParser.urlencoded({ extended: false });
 

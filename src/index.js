@@ -55,7 +55,7 @@ class Server {
     _server.create()
   }
 
-  getTestingServer() {
+  getServer() {
     this._build()
     return _server.app
   }

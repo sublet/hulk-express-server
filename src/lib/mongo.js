@@ -37,8 +37,6 @@ class Mongo {
         logger.warn('####################################')
         logger.warn('####################################')
       }
-
-      console.log(mongo)
       
       const db = await mongoose.connect(mongo.uri, this._getOptions())
       this.isConnected = db.connections[0].readyState

@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require('uuid')
 
 class BaseService {
-
   constructor(model) {
     this._model = model
     this._mongodb = model.build()
@@ -31,13 +30,28 @@ class BaseService {
     return results
   }
 
-  async readMany(query, { limit = 20, populate = null, sort = null } = {}) {
+  async readMany(query, { limit = 50, select = null, populate = null, sort = null } = {}) {
     let cursor = this._mongodb.find(query)
     if (limit) cursor.limit(+limit)
     if (populate) populate.map(itm => cursor = cursor.populate(itm))
     if (sort) cursor = cursor.sort(sort)
-    let results = cursor.exec()
+    if (select) cursor = cursor.select(select)
+    let results = await cursor.exec()
     return results.map(obj => obj.toClient())
+  }
+
+  // https://davidburgos.blog/return-updated-document-mongoose/
+  async updateAndReturn(query, updates, options={}) {
+    if (!query) throw new Error('Query is invalid')
+    if (!updates) throw new Error('Update are invalid')
+
+    updates.modifiedAt = Date.now()
+
+    options.new = true
+    options.upsert = false
+    options.runValidators = true
+
+    return this._mongodb.findOneAndUpdate(query, updates, options)
   }
 
   async createOrUpdate(query, data) {
@@ -61,21 +75,17 @@ class BaseService {
       .exec()
   }
 
-  find() {
-    return this._mongodb.find(...arguments)
-  }
-
   async findOne(query) {
     const results = await this._mongodb.findOne(query).exec()
     return (results) ? results.toClient() : results
   }
   
   async count() {
-    return await this._mongodb.count(...arguments).exec()
+    return await this._mongodb.countDocuments(...arguments).exec()
   }
   
   async update() {
-    return await this._mongodb.updateOne(...arguments).exec()
+    return await this._mongodb.update(...arguments).exec()
   }
 
   async updateMany() {
@@ -88,10 +98,6 @@ class BaseService {
 
   async deleteMany() {
     return await this._mongodb.deleteMany(...arguments).exec()
-  }
-
-  async remove() {
-    return await this._mongodb.remove(...arguments)
   }
 
   aggregate(params) {
