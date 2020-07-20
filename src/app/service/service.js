@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid')
+const { v4: uuidv4 } = require('uuidv4')
 
 class BaseService {
   constructor(model) {

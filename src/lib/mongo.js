@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { v4: uuidv4 } = require('uuid')
+const { uuid } = require('uuidv4');
 const Promise = require('bluebird')
 const logger = require('../app/logger')
 const configLib = require('../app/config')
@@ -78,7 +78,7 @@ class Mongo {
   getId() {
     return {
       type: String,
-      default: uuidv4,
+      default: uuid,
       required: true
     }
   }

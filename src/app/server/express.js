@@ -2,8 +2,6 @@ const express = require('express');
 const http = require('http');
 const Promise = require('bluebird');
 const cors = require('cors');
-const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
-const graphql = require('../graphql')
 const bodyParser = require('body-parser');
 const expressLogger = require('../logger/express');
 const errorHandler = require('./errorHandler');
@@ -20,10 +18,6 @@ class Server {
     this._wrapAsync = fn
   }
 
-  enableGraphql(enable = false) {
-    this._enableGraphql = enable
-  }
-
   setup() {
     if (!this._wrapAsync) throw new Error('wrapAsync method is invalid.')
 
@@ -37,7 +31,6 @@ class Server {
     const bodyParseEncoded = bodyParser.urlencoded({ extended: false });
 
     this._app.use(cors());
-    if (this._enableGraphql) this.setupGraphQL();
     this._app.use(expressLogger()); // Log Request
     this._app.use(bodyParseJson);
     this._app.use(bodyParseEncoded);
@@ -67,14 +60,6 @@ class Server {
     if (!port) throw new Error('Port not set.');
 
     return Promise.fromCallback(cb => this._server.listen(port, bind, cb));
-  }
-
-  setupGraphQL() {
-    const schema = graphql.getSchema()
-    this._app.use('/graphql', bodyParser.json(), graphqlExpress(request => ({schema, context: { headers: request.headers } })))
-    this._app.use('/graphiql', graphiqlExpress({
-      endpointURL: '/graphql'
-    }))
   }
 
   close() {

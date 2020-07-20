@@ -1,7 +1,6 @@
 const { 
   api: _api, 
   config: _config,
-  graphql: _gql, 
   logger: _logger,
   server: _server,
   service: _service, 
@@ -12,7 +11,6 @@ class Server {
   constructor(config) {
     this._config = config
     this._buildConfig = _config(this._config.appFolder)
-    _server.enableGraphql(this._config.enableGraphql)
     _server.setWrapAsync(this._config.wrapAsync)
     
     process.env.APP_FOLDER_PATH = this._config.appFolder
@@ -24,10 +22,6 @@ class Server {
 
   get config() {
     return this._buildConfig
-  }
-
-  get graphql() {
-    return _gql
   }
 
   get logger() {
@@ -74,7 +68,6 @@ class Server {
 
   _build() {
     _api.build(this._config.appFolder)
-    if (this._config.enableGraphql) _gql.build(this._config.appFolder)
     _service.build(this._config.appFolder)
   }
 
