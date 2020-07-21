@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuidv4')
+const { uuid } = require('uuidv4');
 
 class BaseService {
   constructor(model) {
@@ -61,7 +61,7 @@ class BaseService {
     data.modifiedAt = Date.now()
 
     const insertData = {
-      _id: uuidv4(),
+      _id: uuid(),
       createdAt: Date.now(),
       deleted: false
     }
