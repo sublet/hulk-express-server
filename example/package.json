@@ -1,0 +1,33 @@
+{
+  "name": "hulk-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "sls offline start --skipCacheInvalidation --dontPrintOutput --noPrependStageInUrl --lambdaPort 3005 --httpPort 3040",
+    "test": "nyc --reporter=html --reporter=text mocha ./test/**/*.test.js --exit",
+    "lint": "eslint ./"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sublet/hulk-dl-mongo": "@sublet/hulk-dl-mongo",
+    "@sublet/hulk-express-server": "@sublet/hulk-express-server",
+    "app-module-path": "2.2.0",
+    "serverless-http": "2.5.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "7.3.1",
+    "hygen": "^5.0.3",
+    "mocha": "^8.0.1",
+    "nyc": "^15.1.0",
+    "pre-commit": "^1.2.2",
+    "require-directory": "^2.1.1",
+    "serverless": "^1.75.1",
+    "serverless-offline": "^6.4.0",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
+  }
+}
