@@ -3,15 +3,17 @@ const {
   config: _config,
   logger: _logger,
   server: _server,
-  service: _service, 
 } = require('./app')
 
 class Server {
 
   constructor(config) {
     this._config = config
+    this._services = null
     this._buildConfig = _config(this._config.appFolder)
     _server.setWrapAsync(this._config.wrapAsync)
+
+    this.dataLayer = (this._config.dataLayer) ? this._config.dataLayer : null
     
     process.env.APP_FOLDER_PATH = this._config.appFolder
   }
@@ -32,13 +34,17 @@ class Server {
     return _server
   }
 
-  get service() {
-    return _service
+  get db() {
+    return this.dataLayer
+  }
+
+  get services() {
+    return this.dataLayer.build()
   }
 
   setupAndCreate() {
-    _server.setup()
-    _server.create()
+    this.setup()
+    this.create()
   }
 
   setup() {
@@ -68,7 +74,6 @@ class Server {
 
   _build() {
     _api.build(this._config.appFolder)
-    _service.build(this._config.appFolder)
   }
 
   _normalizePort(val) {

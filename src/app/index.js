@@ -2,7 +2,6 @@ const api = require('./api')
 const config = require('./config')
 const logger = require('./logger')
 const server = require('./server')
-const service = require('./service')
 
 class Server {
 
@@ -20,10 +19,6 @@ class Server {
 
   get server() {
     return server
-  }
-
-  get service() {
-    return service
   }
 
 }
