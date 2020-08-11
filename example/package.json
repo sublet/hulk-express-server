@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sublet/hulk-dl-mongo": "@sublet/hulk-dl-mongo",
-    "@sublet/hulk-express-server": "@sublet/hulk-express-server",
+    "@sublet/hulk-dl-mongo": "0.1.2",
+    "@sublet/hulk-express-server": "0.9.8",
     "app-module-path": "2.2.0",
     "serverless-http": "2.5.0"
   },
