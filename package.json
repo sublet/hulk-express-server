@@ -11,7 +11,7 @@
     "lint:fix": "eslint ./ --fix",
     "test": "nyc --reporter=html --reporter=text mocha test/**/*.* --exit",
     "test:unit": "mocha test/unit/*.* --exit",
-    "test:all": "mocha test/**/*.* --exit",
+    "test:all": "mocha test/**/*.* --exit"
   },
   "files": [
     "src/**/*"
