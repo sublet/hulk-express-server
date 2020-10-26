@@ -3,6 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 class API {
+  get app() {
+    return server.app
+  }
+  
   build(appPath) {
     fs.readdirSync(`${appPath}/api`).forEach(file => {
       require(`${appPath}/api/${file}`);

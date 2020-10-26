@@ -21,6 +21,7 @@ class Server {
   setup() {
     if (!this._wrapAsync) throw new Error('wrapAsync method is invalid.')
 
+    // Setup Body General stuff
     const bodyParseJson = bodyParser.json({
       type: '*/*',
       limit: '50mb',
@@ -29,22 +30,23 @@ class Server {
       }
     });
     const bodyParseEncoded = bodyParser.urlencoded({ extended: false });
-
     this._app.use(cors());
     this._app.use(expressLogger()); // Log Request
     this._app.use(bodyParseJson);
     this._app.use(bodyParseEncoded);
-
     this._app.use(responseTimeHandler());
 
+    // Setup Router
     this._router = express.Router();
     this._app.use('/', this._router);
 
+    // Setup Error Reporting.
     process.nextTick(() => {
       this._app.use(notFoundHandler());
       this._app.use(errorHandler());
     });
 
+    // Start Server
     this._server = http.createServer(this._app);
   }
 
