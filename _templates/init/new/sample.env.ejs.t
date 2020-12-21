@@ -1,5 +1,5 @@
 ---
-to: .envrc
+to: sample.env
 ---
 export SLS_DEBUG=*
 export NODE_ENV='local'

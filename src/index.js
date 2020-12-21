@@ -39,7 +39,10 @@ class Server {
   }
 
   get services() {
-    return this.dataLayer.build()
+    if (this.dataLayer) {
+      return this.dataLayer.build()
+    }
+    return null
   }
 
   setupAndCreate() {

@@ -22,9 +22,24 @@ provider:
 
 custom:
   prefix: "${self:service}-${self:provider.stage}"
+  enabled:
+    dev: false
+    prod: true
+    local: false
 
 functions:
 
+  # Cron Example
+
+  # doSomeProcess:
+  #   name: "${self:custom.prefix}-doSomeProcess"
+  #   timeout: 60
+  #   handler: app/sls/cron.doSomeProcess
+  #   events:
+  #     - schedule:
+  #         rate: rate(2 minutes)
+  #         enabled: ${self:custom.enabled.${self:provider.stage}, self.enabled.other}
+  
   # Proxy
 
   proxy:

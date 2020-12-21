@@ -79,3 +79,42 @@ server.start()
 I tend to keep all of my application logic in a folder called `app`. This contains all of the Routes, Controllers, and services you need to make your app work.
 
 ... More to follow.
+
+## Quick Project Setup: CLI
+
+Install the library globaly so you can access the CLI.
+
+```
+npm i -g @sublet/hulk-express-server
+```
+
+```
+hulk init
+```
+
+Create an API
+
+```
+hulk template:api --title users
+```
+
+Create a Service
+
+```
+hulk template:service --title users
+```
+
+```
+cp sample.env .env
+```
+
+### Install Dependencies
+
+```
+npm i @sublet/hulk-express-server @sublet/hulk-dl-mongo app-module-path aws-config aws-sdk axios bluebird boom ejs md5 moment numeral request serverless-http uuidv4
+```
+
+### Install Dev Dependencies
+```
+npm i  -http eslint mocha nyc pre-commit require-directory serverless serverless-offline should supertest --save-dev
+```
