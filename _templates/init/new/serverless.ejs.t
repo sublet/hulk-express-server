@@ -49,4 +49,4 @@ functions:
     memorySize: 1024
     events:
       - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http: 'ANY /{proxy+}'

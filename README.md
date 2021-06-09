@@ -104,8 +104,23 @@ Create a Service
 hulk template:service --title users
 ```
 
+Copy Default Environment Variables
+
 ```
 cp sample.env .env
+```
+
+Scripts section to make Makefile commands work
+
+```
+"scripts": {
+  "start": "sls offline start --skipCacheInvalidation --dontPrintOutput --noPrependStageInUrl --lambdaPort 3005 --httpPort 3040",
+  "test": "NODE_ENV=test nyc --reporter=html --reporter=text make test-all",
+  "lint": "eslint ./"
+},
+"engines": {
+  "node": ">=14.15.1"
+},
 ```
 
 ### Install Dependencies
@@ -116,5 +131,5 @@ npm i @sublet/hulk-express-server @sublet/hulk-dl-mongo app-module-path aws-conf
 
 ### Install Dev Dependencies
 ```
-npm i  -http eslint mocha nyc pre-commit require-directory serverless serverless-offline should supertest --save-dev
+npm i eslint mocha nyc pre-commit require-directory serverless serverless-offline should supertest --save-dev
 ```

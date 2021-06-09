@@ -22,10 +22,12 @@ const config = {
 
 const databaseConfig = {
   servicesPath: path.join(__dirname, 'app/services'),
-  uri: process.env.MONGO_URI,
-  db: process.env.MONGO_DB,
-  ssl: process.env.SSL === 'true',
-  poolSize: 1
+  mongo: {
+    uri: process.env.MONGO_URI,
+    db: process.env.MONGO_DB,
+    ssl: process.env.SSL === 'true',
+    poolSize: 1
+  }
 }
 
 config.dataLayer = require('@sublet/hulk-dl-mongo')(databaseConfig)
