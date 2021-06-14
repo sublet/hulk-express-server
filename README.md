@@ -131,5 +131,5 @@ npm i @sublet/hulk-express-server @sublet/hulk-dl-mongo app-module-path aws-conf
 
 ### Install Dev Dependencies
 ```
-npm i eslint mocha nyc pre-commit require-directory serverless serverless-offline should supertest --save-dev
+npm i chai chai-http eslint mocha nyc pre-commit require-directory serverless serverless-offline should supertest --save-dev
 ```
