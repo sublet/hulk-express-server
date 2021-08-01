@@ -26,8 +26,7 @@ test-int:
 	npx mocha --exit \
 	./test/integration/**/*.test.js
 
-test-all:
-	npm run test
+test-all: test-unit test-int
 
 ngrok:
 	ngrok http 3040 -subdomain=hulk-api
