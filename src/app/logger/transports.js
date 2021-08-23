@@ -1,5 +1,6 @@
 const winston = require('winston')
-const { Papertrail } = require('winston-papertrail')
+// const { Papertrail } = require('winston-papertrail')
+const { PapertrailConnection, PapertrailTransport } = require('winston-3-papertrail');
 const config = require('./config')
 
 const hostname = process.env.PAPERTRAIL_HOSTNAME || 'hulk-express-server'
@@ -12,7 +13,7 @@ const consoleLogger = new winston.transports.Console(config.output)
 let transports = []
 
 if (process.env.PAPERTRAIL_URI && process.env.PAPERTRAIL_PORT) {
-  if (['local','test'].indexOf(process.env.NODE_ENV) < 0) {
+  if (['test'].indexOf(process.env.NODE_ENV) < 0) {
 
     const params = {
       host: process.env.PAPERTRAIL_URI,
@@ -22,7 +23,11 @@ if (process.env.PAPERTRAIL_URI && process.env.PAPERTRAIL_PORT) {
       colorize: true
     }
   
-    const ptTransport = new Papertrail(params)
+    const ptTransport = new PapertrailTransport(new PapertrailConnection(params))
+
+    ptTransport.on('error', function(err) {
+      console.log('ERROR: ', err)
+    });
     
     transports.push(ptTransport)
   }
