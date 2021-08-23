@@ -51,7 +51,7 @@ class Server {
   }
 
   setup() {
-    _server.setup()
+    _server.setup(this._config)
   }
 
   create() {
