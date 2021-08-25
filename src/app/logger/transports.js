@@ -17,13 +17,16 @@ if (process.env.PAPERTRAIL_URI && process.env.PAPERTRAIL_PORT) {
 
     const params = {
       host: process.env.PAPERTRAIL_URI,
-      port: Number(process.env.PAPERTRAIL_PORT),
+      port: Number(process.env.PAPERTRAIL_PORT)
+    }
+
+    const connectionParams = {
       hostname: hostname,
       program: program,
       colorize: true
     }
   
-    const ptTransport = new PapertrailTransport(new PapertrailConnection(params))
+    const ptTransport = new PapertrailTransport(new PapertrailConnection(params), connectionParams)
 
     ptTransport.on('error', function(err) {
       console.log('ERROR: ', err)
