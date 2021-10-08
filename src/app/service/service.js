@@ -30,12 +30,13 @@ class BaseService {
     return results
   }
 
-  async readMany(query, { limit = 50, select = null, populate = null, sort = null } = {}) {
+  async readMany(query, { limit = 50, select = null, populate = null, sort = null, skip = null } = {}) {
     let cursor = this._mongodb.find(query)
     if (limit) cursor.limit(+limit)
     if (populate) populate.map(itm => cursor = cursor.populate(itm))
     if (sort) cursor = cursor.sort(sort)
     if (select) cursor = cursor.select(select)
+    if (skip) cursor = cursor.skip(+skip)
     let results = await cursor.exec()
     return results.map(obj => obj.toClient())
   }
