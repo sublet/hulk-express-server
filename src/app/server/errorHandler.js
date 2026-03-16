@@ -3,7 +3,7 @@ const logger = require('../logger')
 /* eslint-disable */
 const errorHandler = () => {
   return (err, req, res, next) => {
-    let errorCode = err.statusCode || 500
+    let errorCode = err.statusCode || err.status || 500
     let errorMessage = err.message || 'General error.'
     if (err.isBoom) {
       errorCode = err.output.statusCode
